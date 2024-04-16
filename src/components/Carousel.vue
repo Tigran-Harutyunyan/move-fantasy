@@ -10,11 +10,10 @@ import PosterFallback from "@assets/images/no-poster.png";
 import ContentWrapper from "@cmp/ContentWrapper.vue";
 import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
-import {
-  BsFillArrowLeftCircleFill,
-  BsFillArrowRightCircleFill,
-} from "@cmp/icons";
 import LazyLoadImage from "@cmp/LazyLoadImage.vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
 
 const { imageUrls } = storeToRefs(useStore());
 
@@ -44,71 +43,74 @@ const newData = computed(() => {
     };
   });
 });
-
-const navigate = (dir) => {
-  const container = carouselContainer.value;
-
-  const scrollAmount =
-    dir === "left"
-      ? container.scrollLeft - (container.offsetWidth + 20)
-      : container.scrollLeft + (container.offsetWidth + 20);
-
-  container.scrollTo({
-    left: scrollAmount,
-    behavior: "smooth",
-  });
-};
 </script>
 
 <template>
   <div class="carousel">
     <ContentWrapper>
       <div v-if="title" class="carouselTitle">{{ title }}</div>
-
-      <template v-if="newData?.length">
-        <BsFillArrowLeftCircleFill
-          class="carouselLeftNav arrow"
-          @click="navigate('left')"
-        />
-        <BsFillArrowRightCircleFill
-          class="carouselRighttNav arrow"
-          @click="navigate('right')"
-        />
-      </template>
-
       <div
         v-if="!loading && newData"
         class="carouselItems"
         ref="carouselContainer"
       >
-        <RouterLink
-          v-for="item in newData"
-          :key="item.id"
-          class="carouselItem"
-          :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
+        <swiper
+          :modules="[Navigation]"
+          :slides-per-view="5"
+          :space-between="20"
+          :navigation="true"
+          :breakpoints="{
+            '350': {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            '400': {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            '640': {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            '780': {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            '990': {
+              slidesPerView: 5,
+              spaceBetween: 20,
+            },
+          }"
         >
-          <div class="posterBlock">
-            <div class="lazy-load-image-background blur lazy-load-image-loaded">
-              <LazyLoadImage :src="item.posterUrl" />
-            </div>
+          <swiper-slide v-for="item in newData" :key="item.id">
+            <RouterLink
+              class="carouselItem"
+              :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
+            >
+              <div class="posterBlock">
+                <div class="lazy-load-image-background">
+                  <LazyLoadImage :src="item.posterUrl" />
+                </div>
 
-            <CircleRating :rating="item.vote_average.toFixed(1)" />
+                <CircleRating :rating="item.vote_average.toFixed(1)" />
 
-            <Genres :data="item.genre_ids.slice(0, 2)" />
-          </div>
-          <div class="textBlock">
-            <span class="title">
-              {{ item.title || item.name }}
-            </span>
-            <span class="date">
-              {{
-                dayjs(item.release_date || item.first_air_date).format(
-                  "MMM D, YYYY"
-                )
-              }}
-            </span>
-          </div>
-        </RouterLink>
+                <Genres :data="item.genre_ids.slice(0, 2)" />
+              </div>
+              <div class="textBlock">
+                <span class="title">
+                  {{ item.title || item.name }}
+                </span>
+                <span class="date">
+                  {{
+                    dayjs(item.release_date || item.first_air_date).format(
+                      "MMM D, YYYY"
+                    )
+                  }}
+                </span>
+              </div>
+            </RouterLink>
+          </swiper-slide>
+        </swiper>
       </div>
 
       <div v-else class="loadingSkeleton">
@@ -124,7 +126,7 @@ const navigate = (dir) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/style/mixins.scss";
 .carousel {
   margin-bottom: 50px;
@@ -295,5 +297,15 @@ const navigate = (dir) => {
     }
   }
 }
+
+.lazy-load-image-background {
+  img {
+    filter: blur(15px);
+  }
+  img[lazy="loaded"] {
+    opacity: 1;
+    transition: opacity 0.3s;
+    filter: none;
+  }
+}
 </style>
-../types
