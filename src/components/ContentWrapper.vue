@@ -1,0 +1,12 @@
+<template>
+  <div class="contentWrapper"><slot /></div>
+</template>
+
+<style lang="scss" scoped>
+.contentWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+</style>
