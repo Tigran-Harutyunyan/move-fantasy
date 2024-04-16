@@ -1,0 +1,14 @@
+{
+ 
+    "compilerOptions": {
+  
+      "paths": {
+        "@/*": ["./src/*"],
+        "@assets/*": ["./src/assets/*"],
+        "@cmp/*": ["./src/components/*"],
+        "@stores/*": ["./src/stores/*"],
+        "@use/*": ["./src/composables/*"],
+        "@types": ["./src/types"]
+      }
+    }
+  }
