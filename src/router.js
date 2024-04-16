@@ -1,11 +1,15 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
-import HomeView from "./pages/HomeView.vue";
+import HomePage from "./pages/HomePage.vue";
+import DetailsPage from "./pages/DetailsPage.vue";
 
-const routes = [{ path: "/", component: HomeView }];
+const routes = [
+  { path: "/", component: HomePage },
+  { path: "/movie/:id", component: DetailsPage },
+];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 
