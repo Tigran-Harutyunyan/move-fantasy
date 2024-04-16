@@ -18,20 +18,21 @@ import LazyLoadImage from "@cmp/LazyLoadImage.vue";
 
 const { imageUrls } = storeToRefs(useStore());
 
-interface CaropuselProps {
+interface CarouselProps {
   endpoint?: string;
   loading?: boolean;
   title?: string;
   data: Movie[];
 }
 
-const props = defineProps<CaropuselProps>();
+const props = defineProps<CarouselProps>();
 const { data, endpoint, loading, title } = toRefs(props);
 
 const carouselContainer = ref(null);
 
 const newData = computed(() => {
   if (!imageUrls.value) return [];
+
   return data.value.map((item) => {
     const posterUrl = item.poster_path
       ? imageUrls.value.poster + item.poster_path
@@ -80,11 +81,11 @@ const navigate = (dir) => {
         class="carouselItems"
         ref="carouselContainer"
       >
-        <div
+        <RouterLink
           v-for="item in newData"
           :key="item.id"
           class="carouselItem"
-          @click="navigate(`/${item.media_type || endpoint}/${item.id}`)"
+          :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
         >
           <div class="posterBlock">
             <div class="lazy-load-image-background blur lazy-load-image-loaded">
@@ -107,7 +108,7 @@ const navigate = (dir) => {
               }}
             </span>
           </div>
-        </div>
+        </RouterLink>
       </div>
 
       <div v-else class="loadingSkeleton">
