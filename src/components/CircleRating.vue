@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toRefs } from "vue";
 
 interface Props {
   className?: string;
   rating: number | string;
   stroke?: string;
   background?: string;
+  large?: boolean;
 }
 
-const { className, rating } = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   background: "#fff",
 });
 
-const safeRating = Number(rating);
+const { className, rating, large } = toRefs(props);
+const safeRating = Number(rating.value);
 const multipliedRating = safeRating * 10;
 
 const computedStroke = computed(() => {
@@ -24,8 +26,8 @@ const computedStroke = computed(() => {
 </script>
 
 <template>
-  <div class="circleRating">
-    <svg viewBox="0 0 100 100" class="circular-progress" :class="className">
+  <div class="circleRating" :class="[className, { large: large }]">
+    <svg viewBox="0 0 100 100" class="circular-progress">
       <circle class="bg"></circle>
       <circle class="fg"></circle>
       <text class="CircularProgressbar-text" x="50" y="50">
@@ -110,5 +112,11 @@ const computedStroke = computed(() => {
   fill: var(--black);
   dominant-baseline: middle;
   text-anchor: middle;
+}
+
+.circleRating.large {
+  top: 0;
+  width: 86px;
+  height: 86px;
 }
 </style>
