@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import HeroBanner from "@cmp/home/HeroBanner.vue";
-import Trending from "@cmp/home/Trending.vue";
-import Popular from "@cmp/home/Popular.vue";
-import TopRated from "@cmp/home/TopRated.vue";
+import HeroBanner from "../components/home/HeroBanner.vue";
+import Trending from "../components/home/Trending.vue";
+import Popular from "../components/home/Popular.vue";
+import TopRated from "../components/home/TopRated.vue";
 </script>
 
 <template>
