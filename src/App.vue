@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { useGenres } from "@use/useGenres";
 import { useConfig } from "@use/useConfig";
 import { useStore } from "@stores/store";
+import ScrollTop from "./components/ScrollTop.vue";
 
 const { setImageURLs, setGenres } = useStore();
 
@@ -36,5 +37,6 @@ onMounted(() => {
   <main>
     <RouterView />
   </main>
+  <ScrollTop />
   <Footer />
 </template>
