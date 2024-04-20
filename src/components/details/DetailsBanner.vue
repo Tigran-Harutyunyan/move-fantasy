@@ -177,7 +177,7 @@ watch(
               <span class="text bold"> Director: </span>
               <span class="text">
                 <span v-for="(d, i) in directors" :key="i">
-                  {{ d.name }} {{ directors.length - 1 !== i ? ", " : "" }}
+                  {{ d.name }}{{ directors.length - 1 !== i ? ", " : "" }}
                 </span>
               </span>
             </div>
@@ -186,7 +186,7 @@ watch(
               <span class="text bold"> Writer: </span>
               <span class="text">
                 <span v-for="(d, i) in writers" :key="i">
-                  {{ d.name }} {{ writers.length - 1 !== i ? ", " : "" }}
+                  {{ d.name }}{{ writers.length - 1 !== i ? ", " : "" }}
                 </span>
               </span>
             </div>
