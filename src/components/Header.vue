@@ -67,6 +67,11 @@ onUnmounted(() => {
 
       <ul class="menuItems">
         <li class="menuItem" @click="navigationHandler()">
+          <RouterLink to="/popular-persons" activeClass="active-link"
+            >People</RouterLink
+          >
+        </li>
+        <li class="menuItem" @click="navigationHandler()">
           <RouterLink to="/explore/movie" activeClass="active-link"
             >Movies</RouterLink
           >

@@ -5,6 +5,7 @@ import DetailsPage from "./pages/DetailsPage.vue";
 import PersonPage from "./pages/PersonPage.vue";
 import ExplorePage from "./pages/ExplorePage.vue";
 import SearchPage from "./pages/SearchPage.vue";
+import PopularPeoplePage from "./pages/PopularPeoplePage.vue";
 import NotFoundPage from "./pages/404.vue";
 
 const routes = [
@@ -14,6 +15,7 @@ const routes = [
   { name: "tv", path: "/tv/:id", component: DetailsPage },
   { name: "explore", path: "/explore/:id", component: ExplorePage },
   { name: "search", path: "/search/:id", component: SearchPage },
+  { name: "popular", path: "/popular-persons", component: PopularPeoplePage },
   { path: "/:notFound", component: NotFoundPage },
 ];
 

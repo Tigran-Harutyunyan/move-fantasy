@@ -66,25 +66,27 @@ const { person, loading } = toRefs(props);
                 </span>
               </div>
 
-              <div v-if="person.also_known_as" class="infoItem">
-                <span class="text bold"> Also Known As: </span>
-                <span class="text">
-                  <span v-for="(d, i) in person?.also_known_as" :key="i">
-                    {{ d }}
-                    {{ person?.also_known_as.length - 1 !== i ? ", " : "" }}
-                  </span>
-                </span>
-              </div>
-            </div>
-
-            <div class="info">
               <div v-if="person.gender" class="infoItem">
                 <span class="text bold"> Gender: </span>
                 <span class="text">
                   {{ person.gender === 2 ? "Male" : "Female" }}
                 </span>
               </div>
+            </div>
 
+            <div class="info" v-if="person.also_known_as">
+              <div class="infoItem">
+                <span class="text bold"> Also Known As: </span>
+                <span class="text">
+                  <span v-for="(d, i) in person?.also_known_as" :key="i">
+                    {{ d
+                    }}{{ person?.also_known_as.length - 1 !== i ? ", " : "" }}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="info">
               <div v-if="person.birthday" class="infoItem">
                 <span class="text bold"> Birthday: </span>
                 <span class="text">
