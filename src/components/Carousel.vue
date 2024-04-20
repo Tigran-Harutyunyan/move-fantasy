@@ -58,7 +58,7 @@ const newData = computed(() => {
           :modules="[Navigation]"
           :slides-per-view="5"
           :space-between="20"
-          :navigation="true"
+          :navigation="newData?.length > 3"
           :breakpoints="{
             '350': {
               slidesPerView: 1,
@@ -307,5 +307,9 @@ const newData = computed(() => {
     transition: opacity 0.3s;
     filter: none;
   }
+}
+
+.swiper {
+  width: 100%;
 }
 </style>

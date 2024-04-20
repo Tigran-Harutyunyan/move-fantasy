@@ -13,14 +13,17 @@ const props = withDefaults(defineProps<Props>(), {
   background: "#fff",
 });
 
+const size = 100;
+const sizeInPixels = size + "px";
+
 const { className, rating, large } = toRefs(props);
-const safeRating = Number(rating.value);
-const multipliedRating = safeRating * 10;
+const safeRating = computed(() => Number(rating.value));
+const multipliedRating = computed(() => safeRating.value * 10);
 
 const computedStroke = computed(() => {
-  if (safeRating >= 7) return "green";
-  if (safeRating >= 5 && safeRating < 7) return "orange";
-  if (safeRating < 5) return "red";
+  if (safeRating.value >= 7) return "green";
+  if (safeRating.value >= 5 && safeRating.value < 7) return "orange";
+  if (safeRating.value < 5) return "red";
   return;
 });
 </script>
@@ -36,14 +39,17 @@ const computedStroke = computed(() => {
     </svg>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "@/assets/style/mixins.scss";
+
 .circular-progress {
-  --size: 100px;
+  --size: v-bind("sizeInPixels");
+  --rating: v-bind("multipliedRating");
   --half-size: calc(var(--size) / 2);
   --stroke-width: 9px;
   --radius: calc((var(--size) - var(--stroke-width)) / 2);
   --circumference: calc(var(--radius) * pi * 2);
-  --dash: calc((var(--progress) * var(--circumference)) / 100);
+  --dash: calc((var(--rating) * var(--circumference)) / 100);
   animation: progress-animation 1s linear 0s 1 forwards;
 }
 
@@ -68,21 +74,6 @@ const computedStroke = computed(() => {
   stroke: v-bind("computedStroke");
 }
 
-@property --progress {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
-@keyframes progress-animation {
-  from {
-    --progress: 0;
-  }
-  to {
-    --progress: v-bind("multipliedRating");
-  }
-}
-
 .circleRating {
   background-color: var(--black);
   border-radius: 50%;
@@ -99,8 +90,8 @@ const computedStroke = computed(() => {
   padding: 2px;
 }
 
-@media only screen and (min-width: 768px) {
-  .carousel .circleRating {
+.carousel .circleRating {
+  @include md {
     width: 50px;
     height: 50px;
   }
@@ -116,7 +107,11 @@ const computedStroke = computed(() => {
 
 .circleRating.large {
   top: 0;
-  width: 86px;
-  height: 86px;
+  width: 87px;
+  height: 87px;
+  @include xs {
+    width: 71px;
+    height: 71px;
+  }
 }
 </style>

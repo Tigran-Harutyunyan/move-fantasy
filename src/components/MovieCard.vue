@@ -16,7 +16,7 @@ const { imageUrls } = storeToRefs(useStore());
 interface Props {
   data: any;
   fromSearch: boolean;
-  mediaType: string;
+  mediaType?: string | undefined;
 }
 const props = defineProps<Props>();
 const { data, fromSearch, mediaType } = toRefs(props);

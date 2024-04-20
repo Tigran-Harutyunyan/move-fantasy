@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import HomePage from "./pages/HomePage.vue";
 import DetailsPage from "./pages/DetailsPage.vue";
+import PersonPage from "./pages/PersonPage.vue";
 import ExplorePage from "./pages/ExplorePage.vue";
 import SearchPage from "./pages/SearchPage.vue";
 import NotFoundPage from "./pages/404.vue";
@@ -9,6 +10,7 @@ import NotFoundPage from "./pages/404.vue";
 const routes = [
   { path: "/", component: HomePage },
   { name: "movie", path: "/movie/:id", component: DetailsPage },
+  { name: "person", path: "/person/:id", component: PersonPage },
   { name: "tv", path: "/tv/:id", component: DetailsPage },
   { name: "explore", path: "/explore/:id", component: ExplorePage },
   { name: "search", path: "/search/:id", component: SearchPage },

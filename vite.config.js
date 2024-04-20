@@ -1,11 +1,24 @@
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "url";
+import { resolve } from "path";
 
 import vue from "@vitejs/plugin-vue";
+import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  optimizeDeps: {
+    exclude: ["js-big-decimal"],
+  },
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "MyLib",
+      formats: ["es"],
+      fileName: "my-lib",
+    },
+  },
+  plugins: [vue(), dts()],
   resolve: {
     alias: [
       {

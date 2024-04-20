@@ -1,4 +1,8 @@
-{
+{ 
+  "include": [
+    "env.d.ts", 
+    "**/*"
+  ],
  
     "compilerOptions": {
   
@@ -8,7 +12,7 @@
         "@cmp/*": ["./src/components/*"],
         "@stores/*": ["./src/stores/*"],
         "@use/*": ["./src/composables/*"],
-        "@types": ["./src/types"]
+        "@types": ["./src/types"],
       }
     }
   }

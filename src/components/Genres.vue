@@ -14,10 +14,10 @@ const { data } = toRefs(props);
 </script>
 
 <template>
-  <div class="genres">
+  <div class="genres" v-if="data">
     <template v-for="g in data" :key="g">
-      <div class="genre" v-if="genres[g]?.name">
-        {{ genres[g]?.name }}
+      <div class="genre" v-if="genres?.[g]?.name">
+        {{ genres?.[g]?.name }}
       </div>
     </template>
   </div>
