@@ -38,11 +38,13 @@ const getImageUrl = (item) => {
 
       <div class="listItems" v-if="!loading && data">
         <div v-for="item in data" :key="item.id" class="listItem">
-          <div class="profileImg">
-            <LazyLoadImage :src="getImageUrl(item)" />
-          </div>
-          <div class="name">{{ item.name }}</div>
-          <div class="character">{{ item.character }}</div>
+          <router-link :to="`/person/${item.id}`">
+            <div class="profileImg">
+              <LazyLoadImage :src="getImageUrl(item)" />
+            </div>
+            <div class="name">{{ item.name }}</div>
+            <div class="character">{{ item.character }}</div>
+          </router-link>
         </div>
       </div>
     </ContentWrapper>
