@@ -91,12 +91,18 @@ const getImageUrl = (item) => {
           object-fit: cover;
           object-position: center;
           display: block;
+          transition: transform 0.8s;
+          transform: scale(1);
+          &:hover {
+            transform: scale(1.1);
+          }
         }
       }
       .name {
         font-size: 14px;
         line-height: 20px;
         font-weight: 600;
+        color: white;
         @include md {
           font-size: 18px;
           line-height: 24px;
@@ -105,6 +111,7 @@ const getImageUrl = (item) => {
       .character {
         font-size: 14px;
         line-height: 20px;
+        color: white;
         opacity: 0.5;
         @include md {
           font-size: 16px;
