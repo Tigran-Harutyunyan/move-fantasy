@@ -3,7 +3,6 @@ import { toRefs } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@stores/store";
 
-import avatar from "../../assets/images/avatar.png";
 import LazyLoadImage from "../LazyLoadImage.vue";
 import ContentWrapper from "../ContentWrapper.vue";
 
@@ -20,7 +19,7 @@ const { imageUrls } = storeToRefs(useStore());
 const getImageUrl = (item) => {
   return item.profile_path
     ? imageUrls.value?.profile + item.profile_path
-    : avatar;
+    : "../../assets/images/avatar.png";
 };
 </script>
 

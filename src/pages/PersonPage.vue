@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import type { Person } from "../types";
 
 import PersonInfo from "../components/person/PersonInfo.vue";
@@ -81,7 +81,7 @@ watch(
           :data="value || []"
           :loading="false"
           endpoint="movie"
-          :title="key"
+          :title="String(key)"
         />
       </template>
     </template>

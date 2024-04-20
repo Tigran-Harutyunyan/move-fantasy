@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Prop {
-  initial: string;
+  initial: boolean;
 }
 const { initial } = defineProps<Prop>();
 </script>
@@ -34,7 +34,7 @@ const { initial } = defineProps<Prop>();
     width: 50px;
     height: 50px;
     & .path {
-      stroke: hsl(210, 70, 75);
+      stroke: #93bfec;
       stroke-linecap: round;
       animation: dash 1.5s ease-in-out infinite;
     }

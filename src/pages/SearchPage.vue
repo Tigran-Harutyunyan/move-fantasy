@@ -14,8 +14,8 @@ const data = ref();
 const pageNumber = ref(1);
 const loading = ref(false);
 
-const getFilteredData = (results: []) => {
-  return results.filter((item) => item.media_type !== "person");
+const getFilteredData = (results) => {
+  return results.filter((item) => item?.media_type !== "person");
 };
 
 const fetchInitialData = async () => {

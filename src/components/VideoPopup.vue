@@ -6,7 +6,7 @@ const emit = defineEmits(["close", "reset"]);
 
 interface Prop {
   show: boolean;
-  videoId: string;
+  videoId: string | null;
 }
 const { show, videoId } = defineProps<Prop>();
 
@@ -21,7 +21,7 @@ const hidePopup = () => {
     <div class="opacityLayer" @click="hidePopup"></div>
     <div class="videoPlayer">
       <span class="closeBtn" @click="hidePopup"> Close </span>
-      <LiteYouTubeEmbed :id="videoId" />
+      <LiteYouTubeEmbed :id="videoId" v-if="videoId" />
     </div>
   </div>
 </template>

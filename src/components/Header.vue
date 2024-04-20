@@ -3,7 +3,6 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { HiOutlineSearch, VscChromeClose, SlMenu } from "@cmp/icons";
 import ContentWrapper from "@cmp/ContentWrapper.vue";
-import logo from "@assets/images/logo.png";
 
 const show = ref("top");
 const lastScrollY = ref(0);
@@ -62,7 +61,7 @@ onUnmounted(() => {
   <header :class="`header ${showMobileMenu ? 'mobileView' : ''} ${show}`">
     <ContentWrapper>
       <RouterLink class="logo logo-container" to="/">
-        <img :src="logo" alt="logo" />
+        <img src="@assets/images/logo.png" alt="logo" />
         <p class="logo-text">TMDB</p>
       </RouterLink>
 

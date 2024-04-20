@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { useGenres } from "@use/useGenres";
 import { useConfig } from "@use/useConfig";
 import { useStore } from "@stores/store";
+
 const { setImageURLs, setGenres } = useStore();
 
 import Header from "@cmp/Header.vue";

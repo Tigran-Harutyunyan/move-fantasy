@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "url";
-import { resolve } from "path";
 
 import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
@@ -10,14 +9,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["js-big-decimal"],
   },
-  build: {
-    lib: {
-      entry: resolve(__dirname, "src/index.ts"),
-      name: "MyLib",
-      formats: ["es"],
-      fileName: "my-lib",
-    },
-  },
+
   plugins: [vue(), dts()],
   resolve: {
     alias: [

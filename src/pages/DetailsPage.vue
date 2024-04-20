@@ -13,7 +13,7 @@ import { useMyFetch } from "../composables/useMyFetch";
 const router = useRouter();
 const route = useRoute();
 
-const credits = ref([]);
+const credits = ref();
 const videoData = ref();
 
 const creditsLoading = ref(true);
@@ -23,7 +23,7 @@ const mediaType = computed(() => {
   return String(route.name);
 });
 
-const id = route.params.id;
+const id = route.params.id as string;
 
 if (!(mediaType.value === "tv" || mediaType.value === "movie")) {
   router.push({ path: "/" });

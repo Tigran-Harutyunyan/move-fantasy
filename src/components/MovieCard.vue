@@ -2,7 +2,6 @@
 import { computed, toRefs } from "vue";
 
 import dayjs from "dayjs";
-import PosterFallback from "@assets/images/no-poster.png";
 
 import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
@@ -25,7 +24,7 @@ const posterUrl = computed(() => {
   if (!imageUrls.value || !data.value) return "";
   return data.value.poster_path
     ? imageUrls.value.poster + data.value.poster_path
-    : PosterFallback;
+    : "../assets/images/no-poster.png";
 });
 </script>
 

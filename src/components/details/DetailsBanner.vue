@@ -111,7 +111,11 @@ watch(
               :src="imageUrls.backdrop + movie?.poster_path"
             />
 
-            <LazyLoadImage v-else class="posterImg" :src="PosterFallback" />
+            <LazyLoadImage
+              v-else
+              class="posterImg"
+              src="../../assets/images/no-poster.png"
+            />
           </div>
           <div class="right">
             <div class="title">

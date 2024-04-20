@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import type { Movie } from "@types";
 
 import { useStore } from "@stores/store";
-import PosterFallback from "@assets/images/no-poster.png";
 import ContentWrapper from "@cmp/ContentWrapper.vue";
 import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
@@ -35,7 +34,7 @@ const newData = computed(() => {
   return data.value.map((item) => {
     const posterUrl = item.poster_path
       ? imageUrls.value.poster + item.poster_path
-      : PosterFallback;
+      : "../assets/images/no-poster.png";
 
     return {
       ...item,
