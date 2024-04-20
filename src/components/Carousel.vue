@@ -56,8 +56,9 @@ const newData = computed(() => {
         <swiper
           :modules="[Navigation, Mousewheel]"
           :slides-per-view="5"
+          :slides-per-group="2"
           :space-between="20"
-          :mousewheel="true"
+          :mousewheel="false"
           :direction="'horizontal'"
           :navigation="newData?.length > 3"
           :breakpoints="{
