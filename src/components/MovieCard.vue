@@ -24,7 +24,7 @@ const posterUrl = computed(() => {
   if (!imageUrls.value || !data.value) return "";
   return data.value.poster_path
     ? imageUrls.value.poster + data.value.poster_path
-    : "../assets/images/no-poster.png";
+    : "/images/no-poster.png";
 });
 </script>
 

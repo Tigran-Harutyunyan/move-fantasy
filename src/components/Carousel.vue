@@ -34,7 +34,7 @@ const newData = computed(() => {
   return data.value.map((item) => {
     const posterUrl = item.poster_path
       ? imageUrls.value.poster + item.poster_path
-      : "../assets/images/no-poster.png";
+      : "/images/no-poster.png";
 
     return {
       ...item,

@@ -19,7 +19,7 @@ const { imageUrls } = storeToRefs(useStore());
 const getImageUrl = (item) => {
   return item.profile_path
     ? imageUrls.value?.profile + item.profile_path
-    : "../../assets/images/avatar.png";
+    : "/images/avatar.png";
 };
 </script>
 

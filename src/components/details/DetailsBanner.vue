@@ -114,7 +114,7 @@ watch(
             <LazyLoadImage
               v-else
               class="posterImg"
-              src="../../assets/images/no-poster.png"
+              src="/images/no-poster.png"
             />
           </div>
           <div class="right">

@@ -61,7 +61,7 @@ onUnmounted(() => {
   <header :class="`header ${showMobileMenu ? 'mobileView' : ''} ${show}`">
     <ContentWrapper>
       <RouterLink class="logo logo-container" to="/">
-        <img src="@assets/images/logo.png" alt="logo" />
+        <img src="/images/logo.png" alt="logo" />
         <p class="logo-text">TMDB</p>
       </RouterLink>
 
