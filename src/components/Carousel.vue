@@ -11,7 +11,7 @@ import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
 import LazyLoadImage from "@cmp/LazyLoadImage.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper/modules";
+import { Navigation, Mousewheel } from "swiper/modules";
 import "swiper/css";
 
 const { imageUrls } = storeToRefs(useStore());
@@ -54,9 +54,11 @@ const newData = computed(() => {
         ref="carouselContainer"
       >
         <swiper
-          :modules="[Navigation]"
+          :modules="[Navigation, Mousewheel]"
           :slides-per-view="5"
           :space-between="20"
+          :mousewheel="true"
+          :direction="'horizontal'"
           :navigation="newData?.length > 3"
           :breakpoints="{
             '350': {
