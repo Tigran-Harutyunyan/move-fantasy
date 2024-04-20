@@ -81,6 +81,7 @@ const setData = (videoKey: string) => {
     margin-left: -20px;
     padding: 0 20px;
     height: 212px;
+    overflow-y: hidden;
     @include md {
       gap: 20px;
       margin: 0;
