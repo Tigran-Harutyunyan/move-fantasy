@@ -80,6 +80,7 @@ const setData = (videoKey: string) => {
     margin-right: -20px;
     margin-left: -20px;
     padding: 0 20px;
+    height: 212px;
     @include md {
       gap: 20px;
       margin: 0;
@@ -142,6 +143,10 @@ const setData = (videoKey: string) => {
         color: white;
         font-size: 14px;
         line-height: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         @include md {
           font-size: 16px;
           line-height: 24px;
