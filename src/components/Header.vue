@@ -61,8 +61,9 @@ onUnmounted(() => {
 <template>
   <header :class="`header ${showMobileMenu ? 'mobileView' : ''} ${show}`">
     <ContentWrapper>
-      <RouterLink class="logo" to="/">
+      <RouterLink class="logo logo-container" to="/">
         <img :src="logo" alt="logo" />
+        <p class="logo-text">TMDB</p>
       </RouterLink>
 
       <ul class="menuItems">
@@ -138,8 +139,18 @@ onUnmounted(() => {
   }
   .logo {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    .logo-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+      font-size: 24px;
+      margin-left: 10px;
+    }
     img {
-      height: 42px;
+      height: 39px;
     }
   }
   .menuItems {
