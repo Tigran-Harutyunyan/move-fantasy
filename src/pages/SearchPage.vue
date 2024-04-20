@@ -3,8 +3,9 @@ import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 import ContentWrapper from "../components/ContentWrapper.vue";
 import MovieCard from "../components/MovieCard.vue";
+import Spinner from "../components/Spinner.vue";
 import { useMyFetch } from "../composables/useMyFetch";
-import { ref } from "vue";
+import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -13,7 +14,13 @@ const data = ref();
 const pageNumber = ref(1);
 const loading = ref(false);
 
+const getFilteredData = (results: []) => {
+  return results.filter((item) => item.media_type !== "person");
+};
+
 const fetchInitialData = async () => {
+  if (!route.params.id) return;
+
   loading.value = true;
   data.value = [];
 
@@ -22,15 +29,22 @@ const fetchInitialData = async () => {
       `/search/multi?query=${route.params.id}&page=${pageNumber.value}`
     );
 
+    response.results = getFilteredData(response.results);
     data.value = response;
-    ++pageNumber.value;
+    pageNumber.value++;
   } catch (error) {
   } finally {
     loading.value = false;
   }
 };
 
+const hasMore = computed(() => {
+  return data.value ? pageNumber.value <= data.value?.total_pages : false;
+});
+
 const fetchNextPageData = async () => {
+  if (!hasMore.value) return;
+
   try {
     const response = await useMyFetch(
       `/search/multi?query=${route.params.id}&page=${pageNumber.value}`
@@ -39,7 +53,7 @@ const fetchNextPageData = async () => {
     if (data.value?.results) {
       data.value = {
         ...data.value,
-        results: [...data.value?.results, ...response.results],
+        results: [...data.value?.results, ...getFilteredData(response.results)],
       };
     } else {
       data.value = response;
@@ -49,6 +63,13 @@ const fetchNextPageData = async () => {
 };
 
 fetchInitialData();
+
+watch(
+  () => useRoute()?.fullPath,
+  () => {
+    fetchInitialData();
+  }
+);
 </script>
 
 <template>
@@ -66,16 +87,12 @@ fetchInitialData();
           </div>
           <div class="content">
             <template v-for="(item, index) in data?.results" :key="index">
-              <MovieCard
-                v-if="item.media_type !== 'person'"
-                :data="item"
-                :fromSearch="true"
-                :media-type="mediaType"
-              />
+              <MovieCard :data="item" :fromSearch="true" />
             </template>
           </div>
 
           <InfiniteLoading
+            v-if="data?.results.length >= 20"
             @infinite="fetchNextPageData"
             class="infinite-spinner"
           />

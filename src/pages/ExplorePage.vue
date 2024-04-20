@@ -67,6 +67,8 @@ const fetchInitialData = async () => {
 };
 
 const fetchNextPageData = async () => {
+  if (!hasMore.value) return;
+
   try {
     const response = await useMyFetch(
       `/discover/${mediaType.value}?page=${pageNumber.value}`,
@@ -181,6 +183,7 @@ watch(
         </div>
 
         <InfiniteLoading
+          v-if="data?.results.length >= 20"
           @infinite="fetchNextPageData"
           class="infinite-spinner"
         />
