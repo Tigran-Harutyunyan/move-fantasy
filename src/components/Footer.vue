@@ -14,11 +14,12 @@ import ContentWrapper from "@cmp/ContentWrapper.vue";
         <li class="menuItem">FAQ</li>
       </ul>
       <div class="infoText">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
+        The Movie Database (TMDB) is a community built movie and TV database.
+        Every piece of data has been added by our amazing community dating back
+        to 2008. TMDB's strong international focus and breadth of data is
+        largely unmatched and something we're incredibly proud of. Put simply,
+        we live and breathe community and that's precisely what makes us
+        different.
       </div>
       <div class="socialIcons">
         <span class="icon">
