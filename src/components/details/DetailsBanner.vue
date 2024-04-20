@@ -98,7 +98,7 @@ watch(
 
     <template v-if="movie && !loading">
       <div class="backdrop-img">
-        <LazyLoadImage :src="imageUrls?.backdrop + movie?.backdrop_path" />
+        <LazyLoadImage :src="imageUrls?.backdrop + movie.backdrop_path" />
       </div>
       <div class="opacity-layer"></div>
 
