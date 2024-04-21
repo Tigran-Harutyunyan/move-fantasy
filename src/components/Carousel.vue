@@ -261,6 +261,10 @@ const newData = computed(() => {
             height: 100%;
             object-fit: cover;
             object-position: center;
+            transition: transform 1s;
+            &:hover {
+              transform: scale(1.1);
+            }
           }
         }
         .circleRating {

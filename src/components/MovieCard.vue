@@ -40,7 +40,7 @@ const posterUrl = computed(() => {
       </div>
 
       <CircleRating :rating="data.vote_average.toFixed(1)" />
-      <Genres :data="data.genre_ids.slice(0, 2)" />
+      <Genres :data="data.genre_ids.slice(0, 2)" v-if="!fromSearch" />
     </div>
     <div class="textBlock">
       <span class="title">{{ data.title || data.name }}</span>
