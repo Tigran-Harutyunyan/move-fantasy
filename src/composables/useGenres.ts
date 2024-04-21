@@ -4,7 +4,7 @@ import type { Genres } from '@types'
 export const useGenres = async () => {
     let promises = [];
     let endPoints = ["tv", "movie"];
-    let allGenres: Genres;
+    let allGenres = {};
 
     endPoints.forEach((url) => {
         promises.push(useMyFetch(`/genre/${url}/list`));

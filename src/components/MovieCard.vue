@@ -39,10 +39,8 @@ const posterUrl = computed(() => {
         <LazyLoadImage class="posterImg" :src="posterUrl" />
       </div>
 
-      <template>
-        <CircleRating :rating="data.vote_average.toFixed(1)" />
-        <Genres :data="data.genre_ids.slice(0, 2)" />
-      </template>
+      <CircleRating :rating="data.vote_average.toFixed(1)" />
+      <Genres :data="data.genre_ids.slice(0, 2)" />
     </div>
     <div class="textBlock">
       <span class="title">{{ data.title || data.name }}</span>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LiteYouTubeEmbed from "vue-lite-youtube-embed";
 import "vue-lite-youtube-embed/style.css";
-
+import Close from "../components/icons/Close.vue";
 const emit = defineEmits(["close", "reset"]);
 
 interface Prop {
@@ -20,7 +20,7 @@ const hidePopup = () => {
   <div :class="`videoPopup ${show ? 'visible' : ''}`">
     <div class="opacityLayer" @click="hidePopup"></div>
     <div class="videoPlayer">
-      <span class="closeBtn" @click="hidePopup"> Close </span>
+      <span class="closeBtn" @click="hidePopup"><Close /> </span>
       <LiteYouTubeEmbed :id="videoId" v-if="videoId" />
     </div>
   </div>
@@ -60,10 +60,14 @@ const hidePopup = () => {
     transition: transform 250ms;
     .closeBtn {
       position: absolute;
-      top: -20px;
+      top: -117px;
       right: 0;
       color: white;
       cursor: pointer;
+      z-index: 1;
+      svg {
+        width: 30px;
+      }
     }
   }
   &.visible {
