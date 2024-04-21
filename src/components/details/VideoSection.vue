@@ -36,7 +36,7 @@ const setData = (videoKey: string) => {
           @click="setData(video.key)"
         >
           <div class="videoThumbnail">
-            <LazyLoadImage
+            <img
               :src="`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`"
             />
             <PlayIcon />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { toRefs, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@stores/store";
 
@@ -21,6 +21,20 @@ const getImageUrl = (item) => {
     ? imageUrls.value?.profile + item.profile_path
     : "/images/avatar.png";
 };
+
+const newData = computed(() => {
+  if (!data || !imageUrls.value) return [];
+  return data.value.map((item) => {
+    const src = item.profile_path
+      ? imageUrls.value?.profile + item.profile_path
+      : "/images/avatar.png";
+
+    return {
+      ...item,
+      src,
+    };
+  });
+});
 </script>
 
 <template>
@@ -35,11 +49,11 @@ const getImageUrl = (item) => {
         </div>
       </div>
 
-      <div class="listItems" v-if="!loading && data">
-        <div v-for="item in data" :key="item.id" class="listItem">
+      <div class="listItems" v-if="!loading && newData">
+        <div v-for="item in newData" :key="item.id" class="listItem">
           <router-link :to="`/person/${item.id}`">
             <div class="profileImg">
-              <LazyLoadImage :src="getImageUrl(item)" />
+              <LazyLoadImage :src="item.src" />
             </div>
             <div class="name">{{ item.name }}</div>
             <div class="character">{{ item.character }}</div>
