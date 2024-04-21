@@ -3,7 +3,7 @@ import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useMyFetch } from "../../composables/useMyFetch";
 import type { Movie } from "../../types";
-import Carousel from "../Carousel.vue";
+import Carousel from "../Carousel2.vue";
 
 interface Props {
   mediaType: string;
