@@ -176,7 +176,7 @@ watch(
             <MovieCard
               v-if="item.media_type !== 'person'"
               :data="item"
-              :fromSearch="true"
+              :fromSearch="false"
               :media-type="mediaType"
             />
           </template>

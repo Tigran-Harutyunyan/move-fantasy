@@ -39,7 +39,7 @@ const posterUrl = computed(() => {
         <LazyLoadImage class="posterImg" :src="posterUrl" />
       </div>
 
-      <template v-if="!fromSearch">
+      <template>
         <CircleRating :rating="data.vote_average.toFixed(1)" />
         <Genres :data="data.genre_ids.slice(0, 2)" />
       </template>
