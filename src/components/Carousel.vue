@@ -329,6 +329,9 @@ const newData = computed(() => {
   z-index: 10;
   margin-top: 30px;
   width: 100%;
+  @include xs {
+    display: none;
+  }
 }
 
 .swiper-pagination-bullet {
