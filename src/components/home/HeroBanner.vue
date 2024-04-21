@@ -43,7 +43,7 @@ onMounted(async () => {
     <div class="opacity-layer"></div>
     <ContentWrapper>
       <div class="heroBannerContent">
-        <span class="title">Welcome.</span>
+        <span class="title">Welcome</span>
         <span class="subTitle">
           Millions of movies, TV shows and people to discover. Explore now.
         </span>
