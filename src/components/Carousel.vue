@@ -11,7 +11,7 @@ import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
 import LazyLoadImage from "@cmp/LazyLoadImage.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation, Mousewheel } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 
 const { imageUrls } = storeToRefs(useStore());
@@ -27,6 +27,7 @@ const props = defineProps<CarouselProps>();
 const { data, endpoint, loading, title } = toRefs(props);
 
 const carouselContainer = ref(null);
+const pagination = ref(null);
 
 const newData = computed(() => {
   if (!imageUrls.value) return [];
@@ -54,32 +55,39 @@ const newData = computed(() => {
         ref="carouselContainer"
       >
         <swiper
-          :modules="[Navigation, Mousewheel]"
+          :modules="[Pagination]"
           :slides-per-view="5"
-          :slides-per-group="2"
+          :slides-per-group="5"
+          :free-mode="true"
           :space-between="20"
-          :mousewheel="false"
-          :direction="'horizontal'"
-          :navigation="newData?.length > 3"
+          :pagination="{
+            el: pagination,
+            clickable: true,
+          }"
           :breakpoints="{
             '350': {
               slidesPerView: 1,
               spaceBetween: 20,
+              slidesPerGroup: 1,
             },
             '400': {
               slidesPerView: 2,
+              slidesPerGroup: 2,
               spaceBetween: 20,
             },
             '640': {
               slidesPerView: 3,
+              slidesPerGroup: 3,
               spaceBetween: 20,
             },
             '780': {
               slidesPerView: 4,
+              slidesPerGroup: 4,
               spaceBetween: 20,
             },
             '990': {
               slidesPerView: 5,
+              slidesPerGroup: 5,
               spaceBetween: 20,
             },
           }"
@@ -113,6 +121,7 @@ const newData = computed(() => {
             </RouterLink>
           </swiper-slide>
         </swiper>
+        <div class="swiper-pagination" ref="pagination"></div>
       </div>
 
       <div v-else class="loadingSkeleton">
@@ -313,5 +322,32 @@ const newData = computed(() => {
 
 .swiper {
   width: 100%;
+}
+
+.swiper-pagination {
+  position: absolute;
+  text-align: center;
+  transition: 0.3s opacity;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  bottom: -40px;
+  top: var(--swiper-pagination-top, auto);
+  left: 0;
+  width: 100%;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.8;
+  margin: 4px;
+  cursor: pointer;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #f38a2b;
 }
 </style>
