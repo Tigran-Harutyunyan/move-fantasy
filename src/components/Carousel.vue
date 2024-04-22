@@ -86,10 +86,7 @@ const navigate = (dir) => {
                 <LazyLoadImage :src="item.posterUrl" />
               </div>
 
-              <CircleRating
-                :rating="item.vote_average.toFixed(1)"
-                v-if="(item.vote_average -= 0)"
-              />
+              <CircleRating :rating="item.vote_average.toFixed(1)" />
 
               <Genres :data="item.genre_ids.slice(0, 2)" />
             </div>
@@ -139,7 +136,8 @@ const navigate = (dir) => {
     font-size: 30px;
     color: white;
     position: absolute;
-    top: 0;
+    top: 44%;
+    transform: translateY(-50%);
     cursor: pointer;
     z-index: 1;
     display: none;
@@ -152,10 +150,16 @@ const navigate = (dir) => {
     }
   }
   .carouselLeftNav {
-    right: 65px;
+    left: 30px;
+    @include xl {
+      left: -20px;
+    }
   }
   .carouselRighttNav {
-    right: 21px;
+    right: 30px;
+    @include xl {
+      right: -20px;
+    }
   }
   .loadingSkeleton {
     display: flex;
