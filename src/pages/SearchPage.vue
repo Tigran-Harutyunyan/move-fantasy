@@ -80,7 +80,7 @@ watch(
         <template v-if="data?.results?.length > 0">
           <div class="pageTitle">
             {{
-              `Search ${data?.total_results > 1 ? "results" : "result"} of '${
+              `Search ${data?.total_results > 1 ? "results" : "result"} for '${
                 route.params.id
               }'`
             }}
@@ -98,7 +98,9 @@ watch(
           />
         </template>
 
-        <span v-else class="resultNotFound"> Sorry, Results not found! </span>
+        <div v-else class="resultNotFound">
+          There are no movies that matched your query
+        </div>
       </ContentWrapper>
     </template>
   </div>
@@ -111,7 +113,9 @@ watch(
   padding-top: 100px;
   .resultNotFound {
     font-size: 24px;
-    color: var(--black-light);
+    color: white;
+    margin: 100px auto 0;
+    text-align: center;
   }
   .pageTitle {
     font-size: 24px;
