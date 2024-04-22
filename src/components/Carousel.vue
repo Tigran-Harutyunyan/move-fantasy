@@ -86,7 +86,10 @@ const navigate = (dir) => {
                 <LazyLoadImage :src="item.posterUrl" />
               </div>
 
-              <CircleRating :rating="item.vote_average.toFixed(1)" />
+              <CircleRating
+                :rating="item.vote_average.toFixed(1)"
+                v-if="item.vote_average != 0"
+              />
 
               <Genres :data="item.genre_ids.slice(0, 2)" />
             </div>
