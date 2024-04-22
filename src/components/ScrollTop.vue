@@ -47,7 +47,9 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@assets/style/mixins.scss";
+
 .bottom-right {
   position: fixed;
   bottom: 20px;
@@ -60,5 +62,9 @@ onUnmounted(() => {
   right: 10px;
   bottom: 10px;
   cursor: pointer;
+  display: none;
+  @include md {
+    display: block;
+  }
 }
 </style>

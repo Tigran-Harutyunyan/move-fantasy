@@ -89,6 +89,10 @@ const posterUrl = computed(() => {
         height: 100%;
         object-fit: cover;
         object-position: center;
+        transition: transform 1s;
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
     .circleRating {
@@ -113,6 +117,7 @@ const posterUrl = computed(() => {
       }
     }
   }
+
   .textBlock {
     color: white;
     display: flex;
@@ -131,17 +136,12 @@ const posterUrl = computed(() => {
       opacity: 0.5;
     }
   }
-  &:hover {
-    .posterBlock {
-      opacity: 0.5;
-    }
-  }
 }
 
-.movieCard .posterBlock img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
+// .movieCard .posterBlock img {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   object-position: center;
+// }
 </style>

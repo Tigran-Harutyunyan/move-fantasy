@@ -10,9 +10,10 @@ import ContentWrapper from "@cmp/ContentWrapper.vue";
 import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
 import LazyLoadImage from "@cmp/LazyLoadImage.vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "@cmp/icons";
 
 const { imageUrls } = storeToRefs(useStore());
 
@@ -27,7 +28,6 @@ const props = defineProps<CarouselProps>();
 const { data, endpoint, loading, title } = toRefs(props);
 
 const carouselContainer = ref(null);
-const pagination = ref(null);
 
 const newData = computed(() => {
   if (!imageUrls.value) return [];
@@ -43,6 +43,20 @@ const newData = computed(() => {
     };
   });
 });
+
+const navigate = (dir) => {
+  const container = carouselContainer.value;
+
+  const scrollAmount =
+    dir === "left"
+      ? container.scrollLeft - (container.offsetWidth + 20)
+      : container.scrollLeft + (container.offsetWidth + 20);
+
+  container.scrollTo({
+    left: scrollAmount,
+    behavior: "smooth",
+  });
+};
 </script>
 
 <template>
@@ -61,75 +75,48 @@ const newData = computed(() => {
       <template v-if="!loading && newData.length">
         <div v-if="title" class="carouselTitle">{{ title }}</div>
         <div class="carouselItems" ref="carouselContainer">
-          <swiper
-            :modules="[Pagination]"
-            :slides-per-view="5"
-            :slides-per-group="5"
-            :free-mode="true"
-            :space-between="20"
-            :pagination="{
-              el: pagination,
-              clickable: true,
-            }"
-            :breakpoints="{
-              '350': {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                slidesPerGroup: 1,
-              },
-              '400': {
-                slidesPerView: 2,
-                slidesPerGroup: 2,
-                spaceBetween: 20,
-              },
-              '640': {
-                slidesPerView: 3,
-                slidesPerGroup: 3,
-                spaceBetween: 20,
-              },
-              '780': {
-                slidesPerView: 4,
-                slidesPerGroup: 4,
-                spaceBetween: 20,
-              },
-              '990': {
-                slidesPerView: 5,
-                slidesPerGroup: 5,
-                spaceBetween: 20,
-              },
-            }"
+          <RouterLink
+            v-for="item in newData"
+            :key="item.id"
+            class="carouselItem"
+            :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
           >
-            <swiper-slide v-for="item in newData" :key="item.id">
-              <RouterLink
-                class="carouselItem"
-                :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
-              >
-                <div class="posterBlock">
-                  <div class="lazy-load-image-background">
-                    <LazyLoadImage :src="item.posterUrl" />
-                  </div>
+            <div class="posterBlock">
+              <div class="lazy-load-image-background">
+                <LazyLoadImage :src="item.posterUrl" />
+              </div>
 
-                  <CircleRating :rating="item.vote_average.toFixed(1)" />
+              <CircleRating
+                :rating="item.vote_average.toFixed(1)"
+                v-if="(item.vote_average -= 0)"
+              />
 
-                  <Genres :data="item.genre_ids.slice(0, 2)" />
-                </div>
-                <div class="textBlock">
-                  <span class="title">
-                    {{ item.title || item.name }}
-                  </span>
-                  <span class="date">
-                    {{
-                      dayjs(item.release_date || item.first_air_date).format(
-                        "MMM D, YYYY"
-                      )
-                    }}
-                  </span>
-                </div>
-              </RouterLink>
-            </swiper-slide>
-          </swiper>
+              <Genres :data="item.genre_ids.slice(0, 2)" />
+            </div>
+            <div class="textBlock">
+              <span class="title">
+                {{ item.title || item.name }}
+              </span>
+              <span class="date">
+                {{
+                  dayjs(item.release_date || item.first_air_date).format(
+                    "MMM D, YYYY"
+                  )
+                }}
+              </span>
+            </div>
+          </RouterLink>
         </div>
-        <div class="swiper-pagination" ref="pagination"></div>
+        <template v-if="newData?.length">
+          <BsFillArrowLeftCircleFill
+            class="carouselLeftNav arrow"
+            @click="navigate('left')"
+          />
+          <BsFillArrowRightCircleFill
+            class="carouselRighttNav arrow"
+            @click="navigate('right')"
+          />
+        </template>
       </template>
     </ContentWrapper>
   </div>
@@ -150,26 +137,25 @@ const newData = computed(() => {
   }
   .arrow {
     font-size: 30px;
-    color: black;
+    color: white;
     position: absolute;
-    top: 44%;
-    transform: translateY(-50%);
+    top: 0;
     cursor: pointer;
-    opacity: 0.5;
     z-index: 1;
     display: none;
+    opacity: 0.8;
     @include md {
       display: block;
     }
     &:hover {
-      opacity: 0.8;
+      opacity: 1;
     }
   }
   .carouselLeftNav {
-    left: 30px;
+    right: 65px;
   }
   .carouselRighttNav {
-    right: 30px;
+    right: 21px;
   }
   .loadingSkeleton {
     display: flex;
@@ -223,7 +209,6 @@ const newData = computed(() => {
     padding: 0 20px;
     @include md {
       gap: 20px;
-      overflow: hidden;
       margin: 0;
       padding: 0;
     }
@@ -320,36 +305,5 @@ const newData = computed(() => {
     transition: opacity 0.3s;
     filter: none;
   }
-}
-
-.swiper {
-  width: 100%;
-}
-
-.swiper-pagination {
-  text-align: center;
-  transition: 0.3s opacity;
-  transform: translate3d(0, 0, 0);
-  z-index: 10;
-  margin-top: 30px;
-  width: 100%;
-  @include xs {
-    display: none;
-  }
-}
-
-.swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  border-radius: 50%;
-  background: #fff;
-  opacity: 0.8;
-  margin: 4px;
-  cursor: pointer;
-}
-.swiper-pagination-bullet-active {
-  opacity: 1;
-  background: #f38a2b;
 }
 </style>

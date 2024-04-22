@@ -10,6 +10,9 @@ import ContentWrapper from "@cmp/ContentWrapper.vue";
 import Genres from "@cmp/Genres.vue";
 import CircleRating from "@cmp/CircleRating.vue";
 import LazyLoadImage from "@cmp/LazyLoadImage.vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
 
 const { imageUrls } = storeToRefs(useStore());
 
@@ -58,34 +61,73 @@ const newData = computed(() => {
       <template v-if="!loading && newData.length">
         <div v-if="title" class="carouselTitle">{{ title }}</div>
         <div class="carouselItems" ref="carouselContainer">
-          <RouterLink
-            v-for="item in newData"
-            :key="item.id"
-            class="carouselItem"
-            :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
+          <swiper
+            :modules="[Pagination]"
+            :slides-per-view="5"
+            :slides-per-group="5"
+            :free-mode="true"
+            :space-between="20"
+            :pagination="{
+              el: pagination,
+              clickable: true,
+            }"
+            :breakpoints="{
+              '350': {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                slidesPerGroup: 1,
+              },
+              '400': {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+                spaceBetween: 20,
+              },
+              '640': {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+                spaceBetween: 20,
+              },
+              '780': {
+                slidesPerView: 4,
+                slidesPerGroup: 4,
+                spaceBetween: 20,
+              },
+              '990': {
+                slidesPerView: 5,
+                slidesPerGroup: 5,
+                spaceBetween: 20,
+              },
+            }"
           >
-            <div class="posterBlock">
-              <div class="lazy-load-image-background">
-                <LazyLoadImage :src="item.posterUrl" />
-              </div>
+            <swiper-slide v-for="item in newData" :key="item.id">
+              <RouterLink
+                class="carouselItem"
+                :to="{ path: `/${item.media_type || endpoint}/${item.id}` }"
+              >
+                <div class="posterBlock">
+                  <div class="lazy-load-image-background">
+                    <LazyLoadImage :src="item.posterUrl" />
+                  </div>
 
-              <CircleRating :rating="item.vote_average.toFixed(1)" />
+                  <CircleRating :rating="item.vote_average.toFixed(1)" />
 
-              <Genres :data="item.genre_ids.slice(0, 2)" />
-            </div>
-            <div class="textBlock">
-              <span class="title">
-                {{ item.title || item.name }}
-              </span>
-              <span class="date">
-                {{
-                  dayjs(item.release_date || item.first_air_date).format(
-                    "MMM D, YYYY"
-                  )
-                }}
-              </span>
-            </div>
-          </RouterLink>
+                  <Genres :data="item.genre_ids.slice(0, 2)" />
+                </div>
+                <div class="textBlock">
+                  <span class="title">
+                    {{ item.title || item.name }}
+                  </span>
+                  <span class="date">
+                    {{
+                      dayjs(item.release_date || item.first_air_date).format(
+                        "MMM D, YYYY"
+                      )
+                    }}
+                  </span>
+                </div>
+              </RouterLink>
+            </swiper-slide>
+          </swiper>
         </div>
         <div class="swiper-pagination" ref="pagination"></div>
       </template>

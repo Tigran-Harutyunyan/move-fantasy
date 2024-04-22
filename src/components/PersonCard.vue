@@ -69,6 +69,16 @@ const posterUrl = computed(() => {
     justify-content: space-between;
     padding: 10px;
     transition: all ease 0.5s;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 1s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
     .lazy-load-image-background {
       position: absolute;
       top: 0;
@@ -77,12 +87,6 @@ const posterUrl = computed(() => {
       height: 100%;
       border-radius: 12px;
       overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
     }
     .circleRating {
       width: 40px;
@@ -124,17 +128,5 @@ const posterUrl = computed(() => {
       opacity: 0.5;
     }
   }
-  &:hover {
-    .posterBlock {
-      opacity: 0.5;
-    }
-  }
-}
-
-.movieCard .posterBlock img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 </style>
